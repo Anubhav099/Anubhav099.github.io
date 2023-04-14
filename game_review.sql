@@ -110,7 +110,7 @@ INSERT INTO `player` (`username`, `P_mail`, `pw`, `Gender`, `Age`, `Preferred_Pl
 ('Homie', 'smartytekriwal@gmail.com', 'pbkdf2:sha256:260000$w5npJdY5fVtLwAvt$d6d104d85440070d3de2f0e24d23763f9577cb98763323205f9eee27cd48889a', 'M', 21, 'Windows'),
 ('test', 'some@gmail.com', 'pbkdf2:sha256:260000$bU87k8g4IvM15Ku3$275a5fad17e6b051fc4ee9a8f0ee8d1473013199b54df38cfc707a0162eab056', 'M', 26, 'xbox');
 
--- --------------------------------------------------------
+-- -------------------------------------------------------
 
 --
 -- Table structure for table `review`
