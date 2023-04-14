@@ -1,0 +1,27 @@
+{% extends 'baselogin.html' %} 
+{% block title %} Admin Login {% endblock title %} 
+{% block form %}
+<h1>Login as Admin</h1>
+
+<div class="row">
+    <div class="col-md-12">
+        <form action="/adminlogin" method="POST">
+            {% include "message.html" %}
+            <div class="form-group text-light">
+                <label for="mailcol">Admin mail</label>
+                <input type="email" class="form-control" id="mailcol" aria-describedby="emailHelp" placeholder="Enter Admin email" name="i_Ad_mail">
+            </div>
+
+            <div class="form-group text-light">
+                <label for="pwcol">Password</label>
+                <input type="text" class="form-control" id="pwcol" placeholder="Password" name="i_pw">
+            </div>
+            <br>
+            <button type="submit" class="btn btn-info">Login</button>
+
+        </form>
+    </div>
+</div>
+
+
+{% endblock form %}

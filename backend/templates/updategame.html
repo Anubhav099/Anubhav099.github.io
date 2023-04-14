@@ -1,0 +1,68 @@
+{% extends 'baselogin.html' %} 
+{% block title %} Update games {% endblock title %} 
+{% block form %}
+<br><br>
+<h1>Enter Update details:</h1>
+
+<div class="row">
+    <div class="col-md-3">
+        <form action="/updategame" method="POST">
+            {% include "message.html" %}
+            <div class="form-group text-light">
+                <label for="mailcol">Game Name</label>
+                <input type="text" class="form-control" id="mailcol" placeholder="Enter Game" name="i_GName" required>
+            </div>
+
+            <div class="form-group text-light">
+                <label for="pwcol">Publisher</label>
+                <input type="text" class="form-control" id="pwcol" placeholder="Publisher" name="i_publisher" required>
+            </div>
+
+            <div class="form-group text-light">
+                <label for="RDcol">Release Date</label>
+                <input type="date" class="form-control" id="RDcol" placeholder="Release Date" name="i_Rel_Date" required>
+            </div>
+            <div class="form-group text-light">
+                <label for="availpcol">Available Platform</label>
+                <select class="form-control" id="availpcol" name="i_avail_plat" required>
+                <option>Windows</option>
+                <option>PS</option>
+                <option>xbox</option>
+                <option>Android</option>
+                </select>
+            </div>
+            
+            <br>
+            <button type="submit" class="btn btn-info">Update</button>
+
+        </form>
+    </div>
+    <div class="col-md-9">
+        <table class="table table-dark">
+            <thead>
+            <h3 class="text-center text-white bg-dark">GAMES</h3>
+              <tr>
+                
+                <th scope="col">Game</th>
+                <th scope="col">Publisher</th>
+                <th scope="col">Relased on</th>
+                <th scope="col">Available on</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for post in query %}
+             <tr>
+                <td>{{post.GName}}</td>
+                <td>{{post.publisher}}</td>
+                <td>{{post.Rel_Date}}</td>
+                <td>{{post.avail_plat}}</td>
+              </tr>
+            {% endfor %}
+             
+            </tbody>
+          </table>
+    </div>    
+</div>
+
+
+{% endblock form %}

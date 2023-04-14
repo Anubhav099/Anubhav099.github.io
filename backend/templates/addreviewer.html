@@ -1,0 +1,63 @@
+{% extends 'baselogin.html' %} 
+{% block title %} Add new reviewer {% endblock title %} 
+{% block form %}
+<h1>Enter reviewer details:</h1>
+
+
+<div class="row">
+    <div class="col-md-6">
+        <form action="/addreviewer" method="POST">
+            {% include "message.html" %}
+            <div class="form-group text-light">
+                <label for="mailcol">Reviewer's mail</label>
+                <input type="email" class="form-control" id="mailcol" aria-describedby="emailHelp" placeholder="Enter Reviewer's email" name="i_R_mail">
+            </div>
+
+            <div class="form-group text-light">
+                <label for="pwcol">Password</label>
+                <input type="text" class="form-control" id="pwcol" placeholder="Create password" name="i_pw">
+            </div>
+
+            <div class="form-group text-light">
+                <label for="RDcol">Reviewer's Name</label>
+                <input type="text" class="form-control" id="RDcol" placeholder="Name" name="i_RName">
+            </div>
+            <div class="form-group text-light">
+                <label for="gendercol">Gender</label>
+                <select class="form-control" id="gendercol" name="i_Gender">
+                <option>Male</option>
+                <option>Female</option>
+                </select>
+            </div>
+            <div class="form-group text-light">
+                <label for="agecol">Age</label>
+                <input type="number" class="form-control" id="agecol" placeholder="Enter age" name="i_Age">
+            </div>
+            <br>
+            <button type="submit" class="btn btn-info">Add Reviewer</button>
+
+        </form>
+    </div>
+    <div class="col-md-6">
+        <table class="table table-dark">
+            <thead>
+            <h3 class="text-center text-white bg-dark">Reviewers</h3>
+              <tr>
+                
+                <th scope="col">Reviewers Available</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for post in query %}
+             <tr>
+                <td>{{post.RName}}</td>
+              </tr>
+            {% endfor %}
+             
+            </tbody>
+          </table>
+    </div>
+</div>
+
+
+{% endblock form %}

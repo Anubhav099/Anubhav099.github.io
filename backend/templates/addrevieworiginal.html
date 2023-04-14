@@ -1,0 +1,57 @@
+{% extends 'baselogin.html' %} 
+{% block title %} Reviewer Login {% endblock title %} 
+{% block form %}
+<br>
+<br>
+<h1>Enter review:</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <form action="/addreview" method="POST">
+            {% include "message.html" %}
+            <div class="form-group text-light">
+                <label for="mailcol">Game Name</label>
+                <input type="text" class="form-control" id="mailcol" placeholder="Game Name" name="i_GName">
+            </div>
+
+            <div class="form-group text-light">
+                <label for="pwcol">Body</label>
+                <input type="text" class="form-control" id="pwcol" placeholder="Body" name="i_Body">
+            </div>
+
+            <div class="form-group text-light">
+                <label for="RDcol">Hours Played</label>
+                <input type="text" class="form-control" id="RDcol" placeholder="Hours" name="i_Hours_Played">
+            </div>
+            <div class="form-group text-light">
+                <label for="RDcol">RID</label>
+                <input type="text" class="form-control" id="RDcol" placeholder="RID" name="i_RID">
+            </div>
+            <br>
+            <button type="submit" class="btn btn-info">Post</button>
+
+        </form>
+    </div>
+    <div class="col-md-6">
+        <table class="table table-dark">
+            <thead>
+            <h3 class="text-center text-white bg-dark">Reviews</h3>
+              <tr>
+                
+                <th scope="col">Reviewed Games</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for post in query %}
+             <tr>
+                <td>{{post.GName}}</td>
+              </tr>
+            {% endfor %}
+             
+            </tbody>
+          </table>
+    </div>
+</div>
+
+
+{% endblock form %}
