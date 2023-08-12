@@ -4,49 +4,36 @@ from flask.helpers import url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash,check_password_hash
-
 from flask_login import login_required,logout_user,login_user,login_manager,LoginManager,current_user
-
 from flask_mail import Mail
 import json
-
 
 local_server=True                                       
 app=Flask(__name__)                                     
 app.secret_key="anubhav"                                
 
-
 with open('config.json','r') as c:
-    params=json.load(c)["params"]
-
-
+    params=json.load(c)["info"]
 
 app.config.update(
     MAIL_SERVER='smtp.gmail.com',
     MAIL_PORT='465',
     MAIL_USE_SSL=True,
-    MAIL_USERNAME='dbms01111@gmail.com',
-    MAIL_PASSWORD='pqmedobxdzhgkacq'
+    MAIL_USERNAME= params['gmail-user'],
+    MAIL_PASSWORD= params['gmail-password']
 )
 mail = Mail(app)
-
-
 
 login_manager=LoginManager(app)
 login_manager.login_view='login'
 
-
-
-# app.config['SQLALCHEMY_DATABASE_URI']='mysql://username:password@localhost/database_name'
+#                             'mysql://username:password@localhost/database_name'
 app.config['SQLALCHEMY_DATABASE_URI']='mysql://root:@localhost/game_review'
 db=SQLAlchemy(app)
-
-
 
 @login_manager.user_loader
 def load_user(arg):
     return PLAYER.query.get(str(arg)) or ADMIN.query.get(str(arg)) or REVIEWER.query.get(str(arg))
-
 
 class ADMIN(UserMixin,db.Model):
     def get_id(self):
@@ -86,13 +73,9 @@ class REVIEW(db.Model):
     RID=db.Column(db.Integer,primary_key=True)
     GName=db.Column(db.String(40),primary_key=True)
 
-
-
-
 @app.route("/")                                         
 def home():
     return render_template("index.html")                
-
 
 @app.route("/playersignup",methods=['POST','GET'])
 def playersignup():
@@ -197,7 +180,12 @@ def addreviewer():
             return render_template("addreviewer.html",query=query)
         new_reviewer=db.engine.execute(f"INSERT INTO `reviewer` (`RID`, `R_mail`, `pw`, `RName`, `Gender`, `Age`) VALUES (NULL, '{R_mail}','{encpw}','{RName}','{Gender}','{Age}')")
         
-        mail.send_message('YOU ARE A GAME REVIEWER',sender=params['gmail-user'],recipients=[R_mail],body=f"Thanks for choosing to work with us\nYour Login Credentials Are:\n Email Address: {R_mail}\nPassword: {pw}\n\n Do not share your password\n\n\nThank You..." )
+        mail.send_message(
+        'YOU ARE A GAME REVIEWER',            # Subject of the email
+        sender=params['gmail-user'],           # Sender's email address
+        recipients=[R_mail],                   # List of recipient email addresses
+        body=f"Thanks for choosing to work with us\nYour Login Credentials Are:\n Email Address: {R_mail}\nPassword: {pw}\n\n Do not share your password\n\n\nThank You..."
+        )
 
         flash("New Reviewer Added!","success")
         return redirect(url_for('addreviewer',query=query))
@@ -218,7 +206,6 @@ def logoutadmin():
     return render_template("loginadmin.html")
 
 @app.route('/logoutrev')
-# @login_required
 def logoutrev():
     logout_user()
     flash("Logout SuccessFul","warning")
@@ -253,7 +240,6 @@ def test():
 
 
 @app.route('/addreview',methods=['POST','GET'])
-# @login_required
 def addreview():
     query=db.engine.execute(f"SELECT * FROM `GAME`")
     rquery=db.engine.execute(f"SELECT * FROM `REVIEWER`")
@@ -327,13 +313,5 @@ def aboutgame():
     thisgame=GAME.query.filter_by(GName=thisgame).first()
 
     return render_template("aboutgame.html")
-
-# @app.route('/searchgame')
-# def searchgame():
-#     GName=request.form.get('i_GName')
-#     dbGName=GAME.query.filter_by(GName=dbGName).first()
-#     return render_template('searchgame.html')
-
-
 
 app.run(debug=True)                                     #runs the application   
