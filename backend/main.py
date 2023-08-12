@@ -12,7 +12,7 @@ local_server=True
 app=Flask(__name__)                                     
 app.secret_key="anubhav"                                
 
-with open('config.json','r') as c:
+with open("./backend/config.json",'r') as c:
     params=json.load(c)["info"]
 
 app.config.update(
