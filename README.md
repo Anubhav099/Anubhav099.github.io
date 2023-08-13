@@ -1,5 +1,5 @@
 #LIVE Website Link:
-https://anubhav099.github.io/Game-Review-Management-System/LIVE/base.html
+https://anubhav099.github.io/Game-Review-Management-System/Live2/templates/base.html
 
 # Game-Review-Management-System
 The "Game Review Management System" is a Python-Flask and HTML/CSS web app that uses MySQL for database management. With user authentication and authorization, it allows players to access up-to-date video game reviews to make informed decisions. Completed during my 3rd yr of eng., it showcases my web development and database management skills.
